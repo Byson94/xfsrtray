@@ -12,7 +12,14 @@ A floating and customizable system tray for linux.
 To install **xfsrtray** on arch or any arch based system, you can use an aur wrapper like yay:
 
 ```bash
+# Install the package (compile & install)
 yay -S xfsrtray
+
+# Install the bin (fastest)
+yay -S xfsrtray-bin
+
+# Install the git (latest dev version)
+yay -S xfsrtray-git
 ```
 
 If you are on any other system other than arch, you can build the binary by following the steps mentioned under the [building using cargo section](#building-using-cargo).
