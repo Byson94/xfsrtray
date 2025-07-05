@@ -17,20 +17,22 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-      - name: Update PKGBUILD and .SRCINFO
+      - name: Update PKGBUILD and .SRCINFO inside Arch container
         run: |
           set -e
           VERSION=${{ github.event.release.tag_name }}
           VERSION=${VERSION#v}
 
-          # Update version
+          # Update pkgver in PKGBUILD on host before container run
           sed -i "s/^pkgver=.*/pkgver=$VERSION/" aur/build/PKGBUILD
 
-          # update checksums and .SRCINFO
-          cd aur/build
-          updpkgsums
-          makepkg --printsrcinfo > .SRCINFO
-          cd -
+          # Run updpkgsums and makepkg inside Arch Linux container
+          docker run --rm -v ${{ github.workspace }}/aur/build:/aur-build archlinux:latest /bin/bash -c "
+            pacman -Sy --noconfirm pacman-contrib base-devel &&
+            cd /aur-build &&
+            updpkgsums &&
+            makepkg --printsrcinfo > .SRCINFO
+          "
 
       - name: Commit changes if any
         run: |
