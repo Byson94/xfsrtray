@@ -2,6 +2,7 @@
 name = "xfsrtray"
 version = "1.0.0"
 edition = "2024"
+license = "GPL-3.0-or-later"
 
 [dependencies]
 x11rb = "0.12.0"
