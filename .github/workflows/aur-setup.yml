@@ -39,5 +39,5 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "ci: update PKGBUILD and .SRCINFO for release $VERSION"
-            git push
+            git push origin HEAD:main
           fi
