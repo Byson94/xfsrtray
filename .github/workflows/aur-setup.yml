@@ -23,18 +23,27 @@ jobs:
           VERSION=${{ github.event.release.tag_name }}
           VERSION=${VERSION#v}
 
+          # updating all versions
           sed -i "s/^pkgver=.*/pkgver=$VERSION/" aur/build/PKGBUILD
+          sed -i "s/^pkgver=.*/pkgver=$VERSION/" aur/bin/PKGBUILD
+          sed -i "s/^pkgver=.*/pkgver=$VERSION/" aur/git/PKGBUILD
 
           docker run --rm -v ${{ github.workspace }}/aur/build:/aur-build archlinux:latest /bin/bash -c "
             useradd -m builder &&
             pacman -Sy --noconfirm pacman-contrib base-devel &&
             chown -R builder:builder /aur-build &&
-            su builder -c 'cd /aur-build && updpkgsums && makepkg --printsrcinfo > .SRCINFO'
+            su builder -c '
+              cd /aur/build && updpkgsums && makepkg --printsrcinfo > .SRCINFO
+              cd /aur/bin && updpkgsums && makepkg --printsrcinfo > .SRCINFO
+              cd /aur/git && updpkgsums && makepkg --printsrcinfo > .SRCINFO
+            '
           "
 
       - name: Commit changes if any
         run: |
           git add aur/build/PKGBUILD aur/build/.SRCINFO
+          git add aur/bin/PKGBUILD aur/bin/.SRCINFO
+          git add aur/git/PKGBUILD aur/git/.SRCINFO
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
