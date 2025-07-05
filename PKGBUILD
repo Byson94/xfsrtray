@@ -1,5 +1,5 @@
 pkgname=xfsrtray
-pkgver=1.1.1
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="A floating and customizable system tray for linux"
 arch=('x86_64')
