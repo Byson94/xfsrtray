@@ -28,7 +28,7 @@ jobs:
           sed -i "s/^pkgver=.*/pkgver=$VERSION/" aur/bin/PKGBUILD
           sed -i "s/^pkgver=.*/pkgver=$VERSION/" aur/git/PKGBUILD
 
-          docker run --rm -v ${{ github.workspace }}/aur/build:/aur-build archlinux:latest /bin/bash -c "
+          docker run --rm -v ${{ github.workspace }}/aur:/aur archlinux:latest /bin/bash -c "
             useradd -m builder &&
             pacman -Sy --noconfirm pacman-contrib base-devel &&
             chown -R builder:builder /aur-build &&
