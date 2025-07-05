@@ -1,0 +1,44 @@
+name: Update Cargo.lock
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**/*.rs"
+      - "Cargo.toml"
+      - "Cargo.lock"
+  pull_request:
+    paths:
+      - "**/*.rs"
+      - "Cargo.toml"
+
+jobs:
+  update-lockfile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Rust
+        uses: actions/setup-rust@v1
+        with:
+          rust-version: stable
+
+      - name: Build to update Cargo.lock
+        run: cargo build --release
+
+      - name: Check for changes to Cargo.lock
+        run: |
+          if ! git diff --quiet Cargo.lock; then
+            echo "Cargo.lock has changed."
+            echo "LOCK_CHANGED=true" >> $GITHUB_ENV
+          fi
+
+      - name: Commit updated Cargo.lock
+        if: env.LOCK_CHANGED == 'true'
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add Cargo.lock
+          git commit -m "chore(ci): update Cargo.lock"
+          git push

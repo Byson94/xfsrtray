@@ -1,6 +1,8 @@
 # xfsrtray
 
 ![Rust CI](https://github.com/Byson94/xfsrtray/actions/workflows/rust.yml/badge.svg)
+![Build CI](https://github.com/Byson94/xfsrtray/actions/workflows/build.yml/badge.svg)
+![Aur CI](https://github.com/Byson94/xfsrtray/actions/workflows/aur-publish.yml/badge.svg)
 [![AUR](https://img.shields.io/aur/version/xfsrtray?color=1793d1&logo=arch-linux&logoColor=white)](https://aur.archlinux.org/packages/xfsrtray)
 
 A floating and customizable system tray for linux.
