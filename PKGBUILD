@@ -12,7 +12,7 @@ makedepends=('cargo')
 
 build() {
     cd "$srcdir/../"
-    cargo build --release --lock
+    cargo build --release --locked
 }
 
 package() {

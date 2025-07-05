@@ -28,7 +28,7 @@ To build the package using cargo (rust), run the following command in the root o
 
 ```bash
 # Make sure that you have cargo installed.
-cargo build --release --lock
+cargo build --release --locked
 
 # This will compile and create the binary at `/target/release/xfsrtray`
 ```
