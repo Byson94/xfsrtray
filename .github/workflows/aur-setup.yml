@@ -30,7 +30,7 @@ jobs:
 
           docker run --rm -v ${{ github.workspace }}/aur:/aur archlinux:latest /bin/bash -c "
             useradd -m builder &&
-            pacman -Sy --noconfirm pacman-contrib base-devel &&
+            pacman -Sy --noconfirm pacman-contrib base-devel git &&
             chown -R builder:builder /aur &&
             su builder -c '
               cd /aur/build && updpkgsums && makepkg --printsrcinfo > .SRCINFO
