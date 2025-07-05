@@ -22,6 +22,12 @@ jobs:
           git config --global user.name "Byson94"
           git config --global user.email "byson94wastaken@gmail.com"
 
+      - name: Add AUR to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan aur.archlinux.org >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
       - name: Sync and push AUR
         run: |
           set -e
