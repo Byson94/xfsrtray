@@ -23,15 +23,13 @@ jobs:
           VERSION=${{ github.event.release.tag_name }}
           VERSION=${VERSION#v}
 
-          # Update pkgver in PKGBUILD on host before container run
           sed -i "s/^pkgver=.*/pkgver=$VERSION/" aur/build/PKGBUILD
 
-          # Run updpkgsums and makepkg inside Arch Linux container
           docker run --rm -v ${{ github.workspace }}/aur/build:/aur-build archlinux:latest /bin/bash -c "
+            useradd -m builder &&
             pacman -Sy --noconfirm pacman-contrib base-devel &&
-            cd /aur-build &&
-            updpkgsums &&
-            makepkg --printsrcinfo > .SRCINFO
+            chown -R builder:builder /aur-build &&
+            su builder -c 'cd /aur-build && updpkgsums && makepkg --printsrcinfo > .SRCINFO'
           "
 
       - name: Commit changes if any
