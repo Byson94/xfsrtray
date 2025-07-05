@@ -9,3 +9,4 @@ x11rb = "0.12.0"
 clap = { version = "4.5.1", features = ["derive"] }
 # ctrlc = "3"
 signal-hook = "0.3"
+# dummy to trigger build
