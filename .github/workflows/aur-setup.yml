@@ -1,0 +1,43 @@
+name: Update AUR Package Metadata
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  aur-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Update PKGBUILD and .SRCINFO
+        run: |
+          set -e
+          VERSION=${{ github.event.release.tag_name }}
+          VERSION=${VERSION#v}
+
+          # Update version
+          sed -i "s/^pkgver=.*/pkgver=$VERSION/" aur/build/PKGBUILD
+
+          # update checksums and .SRCINFO
+          cd aur/build
+          updpkgsums
+          makepkg --printsrcinfo > .SRCINFO
+          cd -
+
+      - name: Commit changes if any
+        run: |
+          git add aur/build/PKGBUILD aur/build/.SRCINFO
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "ci: update PKGBUILD and .SRCINFO for release $VERSION"
+            git push
+          fi
