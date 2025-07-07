@@ -1,41 +1,38 @@
 #!/bin/bash
 
+set -e  # Exit on error
+
 COMMIT_MESSAGE=$1
 
-if [ "$COMMIT_MESSAGE" = "" ]; then
+if [ -z "$COMMIT_MESSAGE" ]; then
     echo "No commit message provided."
     echo "Please provide a commit message to push to the AUR."
-
     exit 1
 fi
 
-# Functions
-move_to_dir() {
-    directory=$1
+# Absolute path to script's directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-    if [ -d "$directory" ]; then
-        cd "$directory"
-        return 0
+# Function to push a directory
+git_push() {
+    dir=$1
+    echo "Pushing $dir"
+
+    if [ ! -d "$dir" ]; then
+        echo "Directory $dir not found."
+        exit 1
     fi
 
-    echo "Failed moving into $directory."
-    exit 1
-}
+    pushd "$dir" > /dev/null
 
-git_push() {
     git add .
-    git commit -m "$COMMIT_MESSAGE"
+    git commit -m "$COMMIT_MESSAGE" || echo "Nothing to commit in $dir"
     git push
+
+    popd > /dev/null
 }
 
-# Pushing the bin
-move_to_dir "./bin"
-git_push
-
-# Pushing to build
-move_to_dir "../build"
-git_push
-
-# Pushing to git
-move_to_dir "../git"
-git_push
+# Push each directory
+git_push "$SCRIPT_DIR/bin"
+git_push "$SCRIPT_DIR/build"
+git_push "$SCRIPT_DIR/git"
