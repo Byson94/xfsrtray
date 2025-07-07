@@ -24,7 +24,7 @@ move_to_dir() {
 
 git_push() {
     git add .
-    git commit -m "\"$COMMIT_MESSAGE\""
+    git commit -m "$COMMIT_MESSAGE"
     git push
 }
 
