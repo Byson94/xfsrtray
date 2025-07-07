@@ -55,3 +55,7 @@ or you can running this command to build and install the package:
 ```bash
 makepkg -si
 ```
+
+## Documentation
+
+You can read the documentation of xfsrtray on our [Github Wiki](https://github.com/Byson94/xfsrtray/wiki).
