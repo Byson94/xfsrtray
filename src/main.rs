@@ -45,7 +45,7 @@ fn handle_applet_removal(
             *next_x += args.tray_height as i16;
         }
 
-        if args.set_to_item_width {
+        if args.set_to_content_size {
             let new_width = (*next_x as u32) + (args.padding as u32);
             conn.configure_window(win_id, &ConfigureWindowAux::new().width(Some(new_width)))?;
 
@@ -85,7 +85,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let icon_size_i16 = icon_size_u16 as i16;
     let padding_u16 = args.padding as u16;
 
-    let width_u32 = if args.set_to_item_width {
+    let width_u32 = if args.set_to_content_size {
         // just a starting value
         1 + padding * 2 // 1 is added here to prevent 0*2 happening
     } else {
@@ -238,7 +238,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                             // Move next_x for the next icon
                             next_x += icon_size_i16;
 
-                            if args.set_to_item_width {
+                            if args.set_to_content_size {
                                 let new_width = (next_x as u32) + (args.padding as u32);
                                 conn.configure_window(win_id, &ConfigureWindowAux::new().width(Some(new_width)))?;
 

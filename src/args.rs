@@ -33,7 +33,7 @@ pub struct Args {
 
     /// Make tray width match content width (shrink-wrap)
     #[arg(long)]
-    pub set_to_item_width: bool,
+    pub set_to_content_size: bool,
 
 }
 
