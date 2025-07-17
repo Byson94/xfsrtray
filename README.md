@@ -7,6 +7,10 @@
 
 A floating and customizable system tray for linux.
 
+## Media
+
+https://github.com/user-attachments/assets/056f0b82-a672-4585-929b-05dd1b15f79a
+
 ## Installing
 
 To install **xfsrtray** on arch or any arch based system, you can use an aur wrapper like yay:
