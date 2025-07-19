@@ -63,3 +63,14 @@ makepkg -si
 ## Documentation
 
 You can read the documentation of xfsrtray on our [Github Wiki](https://github.com/Byson94/xfsrtray/wiki).
+
+
+## Compatibility
+
+#### Window Systems
+- X11: Is made for and works; tested on Arch (i3wm, xfce4)
+- Wayland: Works (with XWayland); tested on Arch (sway)
+
+#### Operating Systems
+- Arch Linux: Actively tested and developed on
+- Other distributions (e.g., Fedora, Debian): *Not tested*. May require manual dependency resolution.
