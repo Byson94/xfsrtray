@@ -69,7 +69,7 @@ You can read the documentation of xfsrtray on our [Github Wiki](https://github.c
 
 #### Window Systems
 - X11: Is made for and works; tested on Arch (i3wm, xfce4)
-- Wayland: Works (with XWayland); tested on Arch (sway)
+- Wayland: Works (with XWayland); tested on Arch (sway, hyprland)
 
 #### Operating Systems
 - Arch Linux: Actively tested and developed on
