@@ -1,3 +1,6 @@
+> [!WARNING]
+> This project has been archived.
+
 # xfsrtray
 
 ![Rust CI](https://github.com/Byson94/xfsrtray/actions/workflows/rust.yml/badge.svg)
